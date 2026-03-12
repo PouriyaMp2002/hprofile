@@ -2,7 +2,7 @@ name: Hprofile Actions
 on: workflow_dispatch
 jobs:
   Testing:
-    runs-on: self-hosted
+    runs-on: ubutnu-latest
     steps:
       - name: Code Checkout
         uses: actions/checkout@v5 # Use this tool in order to clone.
