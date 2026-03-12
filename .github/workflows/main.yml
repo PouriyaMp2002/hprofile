@@ -32,16 +32,4 @@ jobs:
             -Dsonar.junit.reportsPath=target/surefire-reports \
             -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
 
-      - name: Set up Sonar Quality Gate
-        uses: dieuhd/sonar-quality-gate@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-          GIT_URL: "https://api.github.com"
-          GIT_TOKEN: ${{ secrets.GIT_TOKEN }} 
-          SONAR_URL: ${{ secrets.SONAR_URL }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-        with:
-          login:  ${{ secrets.SONAR_TOKEN }}
-          url: ${{ secrets.SONAR_URL }}
-          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+# Use Documentation for Quality Gate in Github Actions. (Maybe you should buy subscription.)
