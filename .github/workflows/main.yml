@@ -5,7 +5,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4 # Use this tool in order to clone.
+        uses: actions/checkout@v5 # Use this tool in order to clone.
 
       - name: Maven Test #import maven to Test and checkstyle. 
         run: mvn test
@@ -20,7 +20,7 @@ jobs:
           java-version: '11'
       
       - name: Setup SonarQube
-        uses: warchant/setup-sonar-scanner@v7
+        uses: warchant/setup-sonar-scanner@v8
         with:
           version: 7.2.0.5079
       
