@@ -19,15 +19,15 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
       
-      - name: Setup SonarQube
+      - name: Setup SonarScanner
         uses: warchant/setup-sonar-scanner@v8
         with:
           version: 7.2.0.5079
       
-      - name: sonar-scanner
-        run: sonar-scanner                    
-          -Dsonar.host.url=${{ secrets.SONAR_URL }}
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-          -Dsonar.sources=$GITHUB_WORKSPACE
+      - name: Run sonar-scanner
+        run: |
+          sonar-scanner \
+            -Dsonar.host.url=${{ secrets.SONAR_URL }} \
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+            -Dsonar.sources=${{ github.workspace }}
