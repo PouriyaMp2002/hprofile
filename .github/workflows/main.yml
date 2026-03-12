@@ -26,7 +26,8 @@ jobs:
             -Dsonar.host.url=${{ secrets.SONAR_URL }} \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
-            -Dsonar.sources=src \
+            -Dsonar.sources=src/main/java \
+            -Dsonar.tests=src/test/java \
             -Dsonar.java.binaries=target/classes \
             -Dsonar.junit.reportsPath=target/surefire-reports \
             -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
