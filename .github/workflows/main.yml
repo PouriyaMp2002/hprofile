@@ -4,5 +4,12 @@ jobs:
   Testing:
     runs-on: ubuntu-latest
     steps:
-      - name: Testing workflow
-        run: echo "Workflow works! Welcome to CI/CD"
+      - name: Code Checkout
+        uses: actions/checkout@v4 # Use this tool in order to clone.
+
+      - name: Maven Test #import maven to Test and checkstyle. 
+        run: mvn test
+        
+      - name: Maven Checkstyle
+        run: mvn checkstyle:checkstyle
+
