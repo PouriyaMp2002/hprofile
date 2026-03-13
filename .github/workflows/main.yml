@@ -4,41 +4,7 @@ env:
   AWS_REGION: us-east-1
 
 jobs:
-  # Testing:
-  #   runs-on: self-hosted
-  #   steps:
-  #     - name: Code Checkout
-  #       uses: actions/checkout@v4 # Use this tool in order to clone.
-
-  #     - name: Set java 11
-  #       uses: actions/setup-java@v3
-  #       with: 
-  #         distribution: 'temurin'
-  #         java-version: '11'
-
-  #     - name: Maven Test #import maven to Test and checkstyle. 
-  #       run: mvn test
-
-  #     - name: Maven Checkstyle
-  #       run: mvn checkstyle:checkstyle
-
-  #     - name: SonarQube Scan
-  #       run: |
-  #         mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-  #           -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-  #           -Dsonar.host.url=${{ secrets.SONAR_URL }} \
-  #           -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
-  #           -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
-  #           -Dsonar.sources=src/main/java \
-  #           -Dsonar.tests=src/test/java \
-  #           -Dsonar.java.binaries=target/classes \
-  #           -Dsonar.junit.reportsPath=target/surefire-reports \
-  #           -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
-
-# Use Documentation for Quality Gate in Github Actions. (Maybe you should buy subscription.)
-  
   BUILD_PUBLISH:
-    needs: Testing
     runs-on: self-hosted
     steps:
       - name: Code Checkout
