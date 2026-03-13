@@ -50,6 +50,19 @@ jobs:
           sed -i "s/^jdbc.password.*$/jdbc.password\=${{ secrets.PASSWORD  }}/" src/main/resources/application.properties
           sed -i "s/^jdbc.db01/${{  secrets.ENDPOINT  }}/" src/main/resources/application.properties
       
+      - name: 'Get Login to AWS ECR'
+        id: ecr-login
+        uses: thalesvon/ecr-login@master
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_DEFAULT_OUTPUT: json
+          AWS_REGION: us-east-1
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          args: 'get-login --no-include-email --region ${AWS_REGION}'
+      - name: 'Docker Login'
+        run: ${{ steps. ecr-login.outputs.login-string }}
+
       
       - name: Build & Upload image to ECR
         uses: appleboy/docker-ecr-action@master
@@ -57,6 +70,7 @@ jobs:
          access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
          secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          registry: ${{ secrets.REGISTRY }}
+         cache_from: ${{ secrets.CACHE }}
          repo: hprofile
          region: us-east-1
          tags: latest,${{ github.run_number }}
