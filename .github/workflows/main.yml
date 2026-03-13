@@ -51,16 +51,15 @@ jobs:
           sed -i "s/^jdbc.db01/${{  secrets.ENDPOINT  }}/" src/main/resources/application.properties
       
       
-      - name: upload image to ECR
+      - name: Build & Upload image to ECR
         uses: appleboy/docker-ecr-action@master
         with:
-          access_key: ${{  secrets.AWS_ACCESS_KEY_ID  }}
-          secret_key: ${{  secrets.AWS_SECRET_ACCESS_KEY  }}
-          registry: ${{ secrets.registry }}
-          cache_from: ${{ secrets.cache }}
-          repo: hprofile
-          region: us-east-1
-          tags: latest,${{ github.run_number }}
-          daemon_off: false
-          dockerfile: ./Dockerfile
-          context: ./
+         access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         registry: ${{ secrets.REGISTRY }}
+         repo: hprofile
+         region: us-east-1
+         tags: latest,${{ github.run_number }}
+         daemon_off: false
+         dockerfile: ./Dockerfile
+         context: ./
