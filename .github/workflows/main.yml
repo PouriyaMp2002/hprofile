@@ -50,22 +50,21 @@ jobs:
           sed -i "s/^jdbc.password.*$/jdbc.password\=${{ secrets.PASSWORD  }}/" src/main/resources/application.properties
           sed -i "s/^jdbc.db01/${{  secrets.ENDPOINT  }}/" src/main/resources/application.properties
       
-      - name: 'Get Login to AWS ECR'
-        id: ecr-login
-        uses: thalesvon/ecr-login@master
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_DEFAULT_OUTPUT: json
-          AWS_REGION: us-east-1
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          args: 'get-login --no-include-email --region ${AWS_REGION}'
-      - name: 'Docker Login'
-        run: ${{ steps. ecr-login.outputs.login-string }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
-      
-      - name: upload image to ECR
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build image
         run: |
-          docker build -t hprofile .
-          docker tag hprofile:latest ${{ secrets.CACHE }}:latest
+          docker build -f ./Dockerfile -t hprofile:${{ github.run_number }} .
+          docker tag hprofile:${{ github.run_number }} ${{ secrets.CACHE }}:latest
+
+      - name: Push image
+        run: |
           docker push ${{ secrets.CACHE }}:latest
