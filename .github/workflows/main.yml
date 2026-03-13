@@ -59,7 +59,7 @@ jobs:
           registry: ${{ secrets.registry }}
           cache_from: ${{ secrets.cache }}
           repo: hprofile
-          region: ${{ env.AWS_REGION }}
+          region: us-east-1
           tags: latest,${{ github.run_number }}
           daemon_off: false
           dockerfile: ./Dockerfile
