@@ -71,3 +71,5 @@ jobs:
           secret_key: bc5785d3ece6a9cdefa42eb99b58986f9095ff1c
           repo: hprofile
           registry: ${{ secrets.REGISTRY }}
+          dockerfile: ./Dockerfile
+          context: .
