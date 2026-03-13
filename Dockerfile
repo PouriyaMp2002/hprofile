@@ -1,7 +1,6 @@
 FROM maven:3.9-eclipse-temurin-11 AS build_image
 RUN apt update && apt install maven git -y
 RUN git clone https://github.com/hkhcoder/vprofile-project.git
-COPY ./ vprofile-project
 RUN cd vprofile-project &&  mvn install 
 
 FROM tomcat:9-jre11
