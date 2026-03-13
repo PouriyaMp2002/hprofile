@@ -64,16 +64,10 @@ jobs:
         run: ${{ steps. ecr-login.outputs.login-string }}
 
       
-      - name: Build & Upload image to ECR
+      - name: upload image to ECR
         uses: appleboy/docker-ecr-action@master
         with:
-         access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         registry: ${{ secrets.REGISTRY }}
-         cache_from: ${{ secrets.CACHE }}
-         repo: hprofile
-         region: us-east-1
-         tags: latest,${{ github.run_number }}
-         daemon_off: false
-         dockerfile: ./Dockerfile
-         context: .
+          access_key: a50d28f4dd477bc184fbd10b376de753
+          secret_key: bc5785d3ece6a9cdefa42eb99b58986f9095ff1c
+          repo: hprofile
+          registry: ${{ secrets.REGISTRY }}
