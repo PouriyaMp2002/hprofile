@@ -65,11 +65,7 @@ jobs:
 
       
       - name: upload image to ECR
-        uses: appleboy/docker-ecr-action@master
-        with:
-          access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          repo: hprofile
-          registry: ${{ secrets.REGISTRY }}
-          dockerfile: ./Dockerfile
-          context: .
+        run: |
+          docker build -t hprofile .
+          docker tag hprofile:latest ${{ secrets.CACHE }}:latest
+          docker push ${{ secrets.CACHE }}:latest
